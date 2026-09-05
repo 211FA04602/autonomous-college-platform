@@ -6,7 +6,7 @@ This is the foundation-prompt security posture. It will grow as `identity-access
 
 - No authentication is implemented yet. The public API surface is intentionally limited to `GET /v1/system/health`, which returns no sensitive data (status/version/timestamp only).
 - Actuator management endpoints (`/actuator/health`, `/actuator/info`) are served on a **separate management port (8090)**, distinct from the public API port (8080), and only `health`/`info` are exposed — no env, metrics, or beans endpoints are exposed by default.
-- CORS is permissive only under the `local`/`dev` Spring profile, for `http://localhost:5173` and local mobile-emulator origins. It must never be permissive in any deployed environment.
+- CORS is permissive only under the `local`/`dev` Spring profile, for the Vite dev server on its loopback forms (`http://localhost:5173`, `http://127.0.0.1:5173`, `http://[::1]:5173`) and local mobile-emulator origins. It must never be permissive in any deployed environment.
 - No secrets exist in this repository. `.env.example` files (root, `backend/`, `frontend/`, `mobile/`) contain placeholder values only; real values are supplied via environment variables / a secrets manager, never committed.
 
 ## Standing rules (apply from the first line of identity/tenancy code, not retrofitted)
