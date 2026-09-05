@@ -5,6 +5,7 @@ import java.net.URI;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.Status;
@@ -32,6 +33,7 @@ public class SystemHealthController {
   private final String appVersion;
   private final Clock clock;
 
+  @Autowired
   public SystemHealthController(
       HealthEndpoint healthEndpoint, @Value("${app.version:0.0.0-unknown}") String appVersion) {
     this(healthEndpoint, appVersion, Clock.systemUTC());

@@ -5,7 +5,7 @@ ADR-004.
 
 ## What exists in this foundation prompt
 
-- `outbox_event` table (Flyway migration `V1__create_outbox_event.sql`, location
+- `outbox_event` table (Flyway migration `V2__create_outbox_event.sql`, location
   `classpath:db/migration/outbox`): `id` (UUIDv7), `aggregate_type`, `aggregate_id`,
   `event_type`, `payload` (jsonb), `created_at`, `published_at` (nullable — null means
   not yet relayed).

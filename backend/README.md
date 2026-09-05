@@ -104,7 +104,7 @@ This sandbox has no Docker and no local PostgreSQL. That means the following wer
   exercised end-to-end.
 - Actual Flyway migration application (`flywayMigrate`) against Postgres 17 — the SQL
   in `audit/src/main/resources/db/migration/audit/V1__create_audit_log.sql` and
-  `integration-outbox/src/main/resources/db/migration/outbox/V1__create_outbox_event.sql`
+  `integration-outbox/src/main/resources/db/migration/outbox/V2__create_outbox_event.sql`
   was only reviewed for syntactic correctness against Postgres 17, not applied.
 
 ## Deviations from the foundation prompt worth flagging

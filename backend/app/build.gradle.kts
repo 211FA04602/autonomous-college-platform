@@ -1,5 +1,11 @@
 plugins { alias(libs.plugins.springBoot) }
 
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    // Pin the JVM's default TimeZone to UTC instead of inheriting the host OS's zone — see
+    // the matching comment on the root `tasks.withType<Test>()` block for why.
+    jvmArgs("-Duser.timezone=UTC")
+}
+
 description = "Composition root: wires all modules, application.yml, Flyway migration " +
     "location aggregation, the health vertical slice, and the ArchUnit boundary tests."
 

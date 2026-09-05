@@ -54,7 +54,16 @@ subprojects {
         }
     }
 
-    tasks.withType<Test>().configureEach { useJUnitPlatform() }
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+        // Pin the JVM's default TimeZone to UTC instead of inheriting the host OS's zone.
+        // pgjdbc unconditionally sends TimeZone.getDefault().getID() as a Postgres startup
+        // packet parameter; on a Windows host set to "India Standard Time", that default
+        // resolves to the legacy IANA alias "Asia/Calcutta", which recent Postgres tzdata
+        // builds reject (FATAL: invalid value for parameter "TimeZone"). This keeps every
+        // JVM here on UTC, consistent with the UTC storage policy (constitution rule 8).
+        jvmArgs("-Duser.timezone=UTC")
+    }
 
     // The org.springframework.boot Gradle plugin normally adds this automatically
     // wherever spring-boot-starter-test is used; library modules here don't apply that
