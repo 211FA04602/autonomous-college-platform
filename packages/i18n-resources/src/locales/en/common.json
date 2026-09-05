@@ -1,0 +1,13 @@
+{
+  "state.loading": "Loading…",
+  "state.empty": "Nothing to show here yet.",
+  "state.error.title": "Something went wrong",
+  "state.error.retry": "Retry",
+  "state.unauthorized.title": "You don't have access to this",
+  "state.unauthorized.body": "Contact your administrator if you believe this is a mistake.",
+  "state.maintenance.title": "Temporarily unavailable",
+  "state.maintenance.body": "This service is undergoing scheduled maintenance. Please try again shortly.",
+  "action.retry": "Retry",
+  "action.cancel": "Cancel",
+  "action.confirm": "Confirm"
+}

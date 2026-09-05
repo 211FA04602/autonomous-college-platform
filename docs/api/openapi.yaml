@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: Autonomous College Platform API
+  version: "1.0"
+  description: >
+    Public versioned REST API for the Standalone Engineering College & Autonomous
+    Institution Operating Platform (independent from Institora). This document is
+    hand-written and kept in sync with the actual controller contract per constitution
+    rule 5; springdoc-openapi also serves a generated document at /v3/api-docs when the
+    application is running, which must not diverge from this file for any endpoint
+    described here.
+servers:
+  - url: http://localhost:8080
+    description: Local development (app port; see backend/README.md)
+paths:
+  /v1/system/health:
+    get:
+      operationId: getSystemHealth
+      summary: System health
+      description: >
+        Public, versioned health endpoint (distinct from Spring Boot Actuator's
+        operational /actuator/health on the management port 8090, which is not
+        publicly exposed). Mirrors packages/api-contracts/src/systemHealth.ts and
+        packages/validation-schemas/src/index.ts (systemHealthResponseSchema) exactly.
+      tags: [System]
+      security: [] # explicitly public/unauthenticated — no identity-access module exists yet
+      responses:
+        "200":
+          description: >
+            The system is UP or DEGRADED (usable, but a non-critical dependency is
+            impaired).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemHealthResponse"
+              examples:
+                up:
+                  value:
+                    status: UP
+                    version: 0.1.0-foundation
+                    timestampUtc: "2026-09-05T10:15:30Z"
+                degraded:
+                  value:
+                    status: DEGRADED
+                    version: 0.1.0-foundation
+                    timestampUtc: "2026-09-05T10:15:30Z"
+        "503":
+          description: The system is DOWN.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+              example:
+                type: https://docs.acplatform.dev/problems/system-unavailable
+                title: System unavailable
+                status: 503
+                detail: The system is currently unavailable. Retry after a short delay.
+                correlationId: 018f8f2a-1234-7abc-8def-0123456789ab
+components:
+  schemas:
+    SystemHealthResponse:
+      type: object
+      required: [status, version, timestampUtc]
+      properties:
+        status:
+          type: string
+          enum: [UP, DOWN, DEGRADED]
+          description: >
+            UP and DEGRADED are both returned with HTTP 200 in this success-shape
+            body. DOWN is never returned here — it is returned as ProblemDetails
+            with HTTP 503 instead (see the 503 response above).
+        version:
+          type: string
+          example: 0.1.0-foundation
+        timestampUtc:
+          type: string
+          format: date-time
+          example: "2026-09-05T10:15:30Z"
+    ProblemDetails:
+      type: object
+      description: RFC 7807 Problem Details, as produced by every error response in this API.
+      required: [type, title, status]
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+        correlationId:
+          type: string
+          description: >
+            Value of the X-Correlation-Id request/response header for this request
+            (com.acplatform.platformcore.web.CorrelationIdFilter), present on every
+            Problem Details response.

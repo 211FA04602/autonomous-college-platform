@@ -1,0 +1,26 @@
+# Normalize line endings for all text files; keep platform-native checkouts consistent
+* text=auto eol=lf
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.keystore binary
+*.jks binary
+*.p12 binary
+*.p8 binary
+*.mobileprovision binary
+*.ttf binary
+*.otf binary
+
+# Gradle wrapper jar must never be re-encoded
+gradle-wrapper.jar binary
+
+# Do not let generated/lock files dominate language-detection or diff stats
+package-lock.json linguist-generated=true -diff
+*.lock linguist-generated=true -diff

@@ -1,0 +1,20 @@
+# Maestro E2E flow — HEALTH VERTICAL SLICE ONLY.
+#
+# NOT RUN as part of this foundation prompt: Maestro drives a real,
+# already-built app on a connected device/emulator, neither of which exists
+# in this sandbox (no Android SDK/emulator, no macOS/Xcode/simulator — see
+# mobile/README.md). This file is a structural placeholder proving the E2E
+# harness location and flow shape, not evidence of an executed test.
+#
+# To run once a real environment/build is available:
+#   maestro test mobile/.maestro/health-flow.yaml
+#
+appId: com.acplatformmobile
+---
+- launchApp
+- assertVisible: "System status"
+- assertVisible:
+    # Matches one of the loading/healthy/unavailable copy strings from
+    # @acplatform/i18n-resources' systemHealth namespace — whichever state
+    # the app lands in once launched.
+    text: "Checking system status…|All systems operational|Service unavailable"

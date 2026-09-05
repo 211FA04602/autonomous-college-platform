@@ -1,0 +1,25 @@
+{
+  "name": "autonomous-college-platform",
+  "private": true,
+  "description": "Standalone Engineering College & Autonomous Institution Operating Platform — JS/TS workspace root (web, mobile, shared packages). Independent from Institora.",
+  "engines": {
+    "node": ">=24.0.0 <25.0.0",
+    "npm": ">=10.0.0"
+  },
+  "workspaces": [
+    "frontend",
+    "mobile",
+    "packages/*"
+  ],
+  "scripts": {
+    "web:dev": "npm run dev --workspace frontend",
+    "web:build": "npm run build --workspace frontend",
+    "web:lint": "npm run lint --workspace frontend",
+    "web:typecheck": "npm run typecheck --workspace frontend",
+    "web:test": "npm run test --workspace frontend",
+    "mobile:lint": "npm run lint --workspace mobile",
+    "mobile:typecheck": "npm run typecheck --workspace mobile",
+    "mobile:test": "npm run test --workspace mobile",
+    "packages:build": "npm run build --workspaces --if-present --include-workspace-root=false"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@acplatform/api-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Typed API client boundary shared by web and mobile. Types here are hand-written to mirror backend/docs/api/openapi.yaml until an OpenAPI-codegen pipeline is wired up (tracked as a deferred item — see docs/engineering/CONSTITUTION.md and ADR-005/ADR-007). A CI drift check compares this file's health contract against the backend OpenAPI document.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@acplatform/shared-utils": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

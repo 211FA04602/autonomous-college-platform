@@ -1,0 +1,16 @@
+{
+  "name": "@acplatform/shared-utils",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Non-UI, non-business-rule utilities shared by frontend and mobile (formatting, correlation IDs, result helpers). Business logic must not live here — it belongs in the backend.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

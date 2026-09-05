@@ -1,0 +1,18 @@
+# Redocly CLI lint config for docs/api/openapi.yaml (see .github/workflows/api-contract-check.yml).
+# Rules disabled here are foundation-stage exceptions, not permanent policy — revisit
+# each one as the API grows past the single health endpoint.
+extends:
+  - recommended
+rules:
+  # This foundation only has one endpoint (GET /v1/system/health), documented as
+  # local-only for now (no deployed environment exists yet — ADR-006). Re-enable once
+  # a real staging/production server entry is added.
+  no-server-example.com: off
+  # No license has been chosen for this proprietary product yet; not a documentation gap
+  # worth fabricating an answer for.
+  info-license: off
+  # GET /v1/system/health takes no input, so it has nothing to 4xx-validate against;
+  # this rule is genuinely useful once endpoints with request parameters/bodies exist —
+  # do not blanket-disable it when adding the next endpoint, disable per-operation only
+  # if truly parameterless.
+  operation-4xx-response: off

@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: acplatform-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/acplatform}
+    username: ${SPRING_DATASOURCE_USERNAME:acplatform}
+    password: ${SPRING_DATASOURCE_PASSWORD:acplatform_local_only}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    # One location per module that owns migrations right now (ADR-003). Every other
+    # module is an empty skeleton in this foundation prompt and owns no migrations yet.
+    locations: classpath:db/migration/audit,classpath:db/migration/outbox
+
+server:
+  port: 8080
+
+management:
+  server:
+    port: 8090
+  endpoints:
+    web:
+      exposure:
+        # Minimal public exposure on the management port — only health/info.
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+logging:
+  structured:
+    format:
+      console: logstash
+
+app:
+  version: 0.1.0-foundation
+
+---
+# Dev-only profile. NEVER activate outside local development — see
+# com.acplatform.app.config.LocalDevCorsConfig and backend/README.md.
+spring:
+  config:
+    activate:
+      on-profile: local

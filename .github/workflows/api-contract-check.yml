@@ -1,0 +1,40 @@
+name: api-contract-check
+
+# Validates the hand-authored OpenAPI document is well-formed. This is the
+# seed for a future generated-API-client drift check: once `packages/api-contracts`
+# is generated from `docs/api/openapi.yaml` instead of hand-written, this
+# workflow gains a step that regenerates the client and fails the build if
+# the working tree then differs (i.e. someone changed the API without
+# regenerating the client). Not possible yet because no codegen pipeline
+# exists — tracked here rather than silently deferred.
+
+on:
+  pull_request:
+    paths:
+      - "docs/api/**"
+      - "packages/api-contracts/**"
+      - "packages/validation-schemas/**"
+  push:
+    branches: [main]
+    paths:
+      - "docs/api/**"
+      - "packages/api-contracts/**"
+      - "packages/validation-schemas/**"
+
+permissions:
+  contents: read
+
+jobs:
+  lint-openapi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+
+      - name: Lint OpenAPI document
+        run: npx --yes @redocly/cli@latest lint docs/api/openapi.yaml --config .redocly.yaml

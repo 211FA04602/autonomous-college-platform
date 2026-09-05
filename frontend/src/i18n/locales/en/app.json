@@ -1,0 +1,14 @@
+{
+  "shell.skipToContent": "Skip to main content",
+  "shell.appName": "Autonomous College Platform",
+  "shell.nav.ariaLabel": "Primary",
+  "shell.nav.home": "System status",
+  "notFound.title": "Page not found",
+  "notFound.body": "The page you're looking for doesn't exist or has moved.",
+  "notFound.homeLink": "Go to system status",
+  "health.field.status": "Status",
+  "health.field.version": "Version",
+  "health.status.up": "Operational",
+  "health.status.degraded": "Degraded",
+  "health.status.down": "Down"
+}

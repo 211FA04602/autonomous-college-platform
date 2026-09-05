@@ -1,0 +1,7 @@
+{
+  "health.title": "System status",
+  "health.status.healthy": "All systems operational",
+  "health.status.unavailable": "Service unavailable",
+  "health.status.checking": "Checking system status…",
+  "health.lastChecked": "Last checked {{time}}"
+}
